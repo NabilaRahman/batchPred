@@ -1,0 +1,14 @@
+Package: batchPred
+Version: 0.1
+Date: 2020-07-15
+Title: batchPred - Objective prediction of relevant set of batch effects variables
+Authors@R: c(person("Nabila Rahman", Judith Somekh , role = c("aut", "cre"),
+                     email = "rahmann12@cardiff.ac.uk"),
+              )
+Author: Nabila Rahman [aut, cre],
+Maintainer: Nabila Rahman <rahmann12@cardiff.ac.uk>
+Depends: R (>= 3.6.2), data.table, pROC, foreach, doParallel
+Description: batchPred objectively predicts relevant batch variables in order to improve the interpretation of heterogenous datasets.
+License: GPL (>= 2)
+Encoding: UTF-8
+RoxygenNote: 7.1.0
