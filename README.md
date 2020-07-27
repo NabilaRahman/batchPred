@@ -1,5 +1,5 @@
 # Objective Prediction of Confounders
-batchPred tool helps identify the most relevant set of covariates to correct for when you have many covariates that could potentially confound your data. For example known variables such as age, sex, alignment qc or unknown variables such as principle components. The package requires an expression dataset, at least 1 dataframe of covariates, and a reference gene-gene association network with a confidence score, in our examples we use 'full network' gold standards from the [GIANT database](http://giant.princeton.edu/download). (More Details coming soon). 
+batchPred tool helps identify the most relevant set of covariates to correct for when you have many covariates that could potentially confound your data. For example known variables such as age, sex, alignment qc or unknown variables such as principle components. The package requires an expression dataset, at least 1 dataframe of covariates, and a reference gene-gene association network with a confidence score, in our examples we use 'full network' gold standards from the [GIANT database](http://giant.princeton.edu/download).
 
 Step 1: Prepare your reference network using **refNet** function  
 Step 2: Take none overlapping subset(s) from this reference network using **refNetSubsets** function  
