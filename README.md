@@ -1,5 +1,5 @@
 # Objective Prediction of Confounders
-batchPred tool helps identify the most relevant set of covariates to correct for when you have many variables that could potentially confound your data, e.g known variables such as age, sex, read quality, or unknown variables such as principle components. The package requires an expression dataset, at least 1 dataframe of covariates, and a reference gene-gene association network with a confidence score. In our examples, we use 'full network' gold standards from the [GIANT database](http://giant.princeton.edu/download).
+batchPred is an R package that helps identify the most relevant set of covariates to correct for when you have many variables that could potentially confound your data, e.g known variables such as age, sex, read quality, or unknown variables such as principle components. The package requires an expression dataset, at least 1 dataframe of covariates, and a reference gene-gene association network with a confidence score. In our examples, we use 'full network' gold standards from the [GIANT database](http://giant.princeton.edu/download).
 
 ## Installation
 You can install the most recent development version from github
