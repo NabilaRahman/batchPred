@@ -5,11 +5,11 @@
 #'  \code{batchPred} functions.
 #' 
 #' @param network_gold_standard Datatable of gene-gene network gold standard.
-#'  Column 1 and 2 are entrez gene IDs. Column 3 is posterior probability with
+#'  Column 1 and 2 are gene IDs. Column 3 is posterior probability with
 #'  known edges set to 1. \code{refNet} is optimised for "full 
 #'  networks", which can be be downloaded from 
 #'  http://giant.princeton.edu/download/.
-#' @param entrezID_input_edata Character vector of entrez gene ids that 
+#' @param input_edata Character vector of gene ids that 
 #'  exist within your expression dataset.
 #' @param gold_standard_path (Optional). Path to gene-gene network gold
 #'  standard file. Can be specified in place of \code{network_gold_standard}.
@@ -21,9 +21,9 @@
 #'  listed.
 #'
 #' @return A reference gene association network for genes present in 
-#'	\code{entrezID_input_edata}. This gold standard only retains the highest 
+#'	\code{input_edata}. This gold standard only retains the highest 
 #'	and lowest confidence gene interactions.Output is a data.table with 
-#'	columns 1 and 2 being entrez gene ID, column 2 is posterior probability. 
+#'	columns 1 and 2 being gene ID, column 2 is posterior probability. 
 #'	While column 3 is defines whether gene relation is a true positive or 
 #'	false positive (0) based on user defined thresholds.
 #' @examples
@@ -36,35 +36,35 @@
 #'       ,NA,NA)
 #'     , stringsAsFactors = F )
 #'     
-#' #Create Mock entrez Gene IDs    
-#' entrezID_input_edata <- c('3091','4763','4204','7352','8698','6855' )
+#' #Create Mock Gene IDs    
+#' input_edata <- c('3091','4763','4204','7352','8698','6855' )
 #'	
 #'	#Generate Reference Network
-#' refNet( network_gold_standard, entrezID_input_edata, 
+#' refNet( network_gold_standard, input_edata, 
 #'	gold_standard_path = NULL, false_positive = 0.025, true_positive = 0.5) 
 #' @export
 
-refNet <- function(network_gold_standard=NULL, entrezID_input_edata=entrezID_input_edata, gold_standard_path = NULL, false_positive = 0.025, true_positive = 0.5) 
+refNet <- function(network_gold_standard=NULL, input_edata=input_edata, gold_standard_path = NULL, false_positive = 0.025, true_positive = 0.5) 
 {
   start.time <- Sys.time()
   if(!exists("network_gold_standard") & is.null(gold_standard_path) & is.null(ncol(network_gold_standard)) ) {
     message("Warning: 'network_gold_standard' and 'gold_standard_path' missing. Please specify either 'network_gold_standard' or 'gold_standard_path'.")
-  } else if ( !is.null(gold_standard_path) & file.exists(gold_standard_path) ) {
+  } else if ( !is.null(gold_standard_path) && file.exists(gold_standard_path) ) {
     network_gold_standard<-data.table::fread(gold_standard_path, fill=T)
-  } else if ( !file.exists(gold_standard_path )) {
+  } else if ( !is.null(gold_standard_path) && !file.exists(gold_standard_path )) {
     message("File specified at 'gold_standard_path' does not exist.")
   }
   
-  if(!exists("entrezID_input_edata") | class(entrezID_input_edata) != "character" ) {
-    message("Warning: 'entrezID_input_edata' missing. This must be a vector of entrez_gene_ids from your dataset of interest")
+  if(!exists("input_edata") | class(input_edata) != "character" ) {
+    message("Warning: 'input_edata' missing. This must be a vector of gene_ids from your dataset of interest")
   } 
   
   # Clean up Reference Network
   network_gold_standard <- network_gold_standard[,c(1:3)]
-  colnames(network_gold_standard) <- c("entrezID1", "entrezID2", "postProbability")
-  network_gold_standard$entrezID1 <- as.character(network_gold_standard$entrezID1)
-  network_gold_standard$entrezID2 <- as.character(network_gold_standard$entrezID2)
-  entrezID_input_edata <- as.character(entrezID_input_edata)
+  colnames(network_gold_standard) <- c("geneID1", "geneID2", "postProbability")
+  network_gold_standard$geneID1 <- as.character(network_gold_standard$geneID1)
+  network_gold_standard$geneID2 <- as.character(network_gold_standard$geneID2)
+  input_edata <- as.character(input_edata)
   
   # Only retains reference gene-gene relation postProbability is > true_positive or < false_positive
   network_gold_standard_filt_prob <- network_gold_standard
@@ -73,10 +73,10 @@ refNet <- function(network_gold_standard=NULL, entrezID_input_edata=entrezID_inp
   network_gold_standard_filt_prob<-network_gold_standard_filt_prob[!is.na(network_gold_standard_filt_prob$Confidence),]
   message(paste(round(((nrow(network_gold_standard)-nrow(network_gold_standard_filt_prob))/nrow(network_gold_standard))*100,2), "% associations removed due to false/true positive thresholds"))
   
-  # Only retains reference gene-gene relation if it exists in entrezID_input_edata
-  gold_standard_filt <- network_gold_standard_filt_prob[network_gold_standard_filt_prob$entrezID1 %in% entrezID_input_edata,]
-  gold_standard_filt <- gold_standard_filt[gold_standard_filt$entrezID2 %in% entrezID_input_edata,]
-  message(paste( round(((nrow(network_gold_standard_filt_prob)-nrow(gold_standard_filt))/nrow(network_gold_standard))*100,3), "% associations removed because genes do not exist in entrezID_input_edata") )
+  # Only retains reference gene-gene relation if it exists in input_edata
+  gold_standard_filt <- network_gold_standard_filt_prob[network_gold_standard_filt_prob$geneID1 %in% input_edata,]
+  gold_standard_filt <- gold_standard_filt[gold_standard_filt$geneID2 %in% input_edata,]
+  message(paste( round(((nrow(network_gold_standard_filt_prob)-nrow(gold_standard_filt))/nrow(network_gold_standard))*100,3), "% associations removed because genes do not exist in input_edata") )
   
   #Time Taken
   end.time <- Sys.time()
