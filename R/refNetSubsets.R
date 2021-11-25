@@ -5,7 +5,7 @@
 #' 
 #' @param gold_standard_filt Data table of gene-gene network
 #'  associations. \code{gold_standard_filt} is basically the output of 
-#'  \code{createRefGeneNet}. Column 1 and 2 are entrez gene IDs. Column 3 is 
+#'  \code{createRefGeneNet}. Column 1 and 2 are gene IDs. Column 3 is 
 #'  posterior probability with known edges set to 1. While column 4 defines 
 #'  whether a gene relation is a true positive (1) or false positive (0).
 #' @param seed Integer. Seed allows reproduction of a sequence of random 
@@ -25,15 +25,23 @@
 #'  Should be the same cutoff used in \code{createRefGeneNet} or higher. Used
 #'  as a starting point for adjusting the number of false positives and 
 #'  negatives. Default: 0.5
+#' @param threshold Maximum difference allowed between number of true and false 
+#' positive. You should aim to have similar number of false and true positive 
+#' gene-gene interactions. Set this to NULL calculate an appropriate number 
+#' automatically.
+#' 
+#'  Should be the same cutoff used in \code{createRefGeneNet} or higher. Used
+#'  as a starting point for adjusting the number of false positives and 
+#'  negatives. Default: 0.5
 #' @return A data table or a list of data tables. Generates non-overlapping 
 #'  subsets from a reference gene association network and calibrates the 
 #'  number of true positives and false positives to be approximately equal.
 #' @examples
-#' gold_standard_filt <- data.table::data.table(entrezID1 = c(6776, 5359,
+#' gold_standard_filt <- data.table::data.table(geneID1 = c(6776, 5359,
 #'     9039, 10651, 6627, 3950, 1998, 222950, 54732, 92745, 
 #'     1974, 30814, 29982, 4967, 10234, 9742, 57484, 5818, 
 #'     5590 , 92211)
-#'  , entrezID2 = c(7318, 3601, 1027, 4190, 6427, 22797, 9215, 
+#'  , geneID2 = c(7318, 3601, 1027, 4190, 6427, 22797, 9215, 
 #'     83642, 10388, 1288, 474, 5973, 1735, 374454, 2886, 
 #'     1933, 79029, 6666, 7307, 51285)
 #'  , postProbability = c(0.62357, 0.784499, 0.535758, 0.824298, 0.773425, 
@@ -63,9 +71,9 @@ refNetSubsets <- function(
   , threshold = NULL
 ) {
   set.seed(seed)
-  colnames(gold_standard_filt) <-c("entrezID1", "entrezID2", "postProbability", "Confidence")
-  gold_standard_filt$entrezID1<- as.character(gold_standard_filt$entrezID1)
-  gold_standard_filt$entrezID1 <- as.character(gold_standard_filt$entrezID1)
+  colnames(gold_standard_filt) <-c("geneID1", "geneID2", "postProbability", "Confidence")
+  gold_standard_filt$geneID1<- as.character(gold_standard_filt$geneID1)
+  gold_standard_filt$geneID2 <- as.character(gold_standard_filt$geneID2)
   if (number_of_subsets > 1) {calibratedSamples <- list() } 
   
   for (s.num in 1:number_of_subsets) {
