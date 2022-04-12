@@ -147,6 +147,4 @@ plotBceF2<- function (input.edata, covariates.df.list, input.gold.standard,
   }
   legend("bottomright", cex = 1, legend = final.legend.to.use,
          col = line.color, lwd = 0.8, lty = c(1, 1, 1, 1))
-  pl <- recordPlot()
-  return(p1)
 }
