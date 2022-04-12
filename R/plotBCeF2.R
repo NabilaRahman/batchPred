@@ -7,7 +7,7 @@
 #'  represent the genes/probes and columns represent samples.
 #' @param covariates.df.list List of covariate dataframes. Each dataframe in the 
 #'  list consists of columns representing known covariates e.g. Age, Sex, or  
-#'  unknown covariatessuch as principle components. Rows represent samples.
+#'  unknown covariates such as principle components. Rows represent samples.
 #' @param input.gold.standard Dataframe. A gold standard that includes a gene 
 #'  coexpression confidence. First column represents the first gene, the second 
 #'  column the second gene and the third columns should be a binary vector where 
