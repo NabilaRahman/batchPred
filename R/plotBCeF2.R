@@ -47,7 +47,7 @@ plotBceF2<- function (input.edata, covariates.df.list, input.gold.standard,
     line.color <- somecolors[1:(1+length(covariates.df.list))] 
   } else if ( length(covariates.df.list) > 6 )  {
       message("ERROR: Not enough colors specified. Please specify colors using the 'line.color' parameter" )
-      exit
+      stop()
     }
   
   rownames(input.edata) <- as.character(rownames(input.edata))
