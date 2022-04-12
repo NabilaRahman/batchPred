@@ -115,7 +115,6 @@ plotBceF2<- function (input.edata, covariates.df.list, input.gold.standard,
   gold.standard.bool = pvals.df[, "Confidence"]
   pvals.df = pvals.df[,c(4:ncol(pvals.df))]
   pvals.df = apply(pvals.df, 2, function(x) p.adjust(x, method = "BH"))
-  pvals.df = pvals.df[, grepl("binAll.*",colnames(pvals.df))]
   dataset.col.names <- c("Raw",roc.curve.legend)
   colnames(pvals.df) = dataset.col.names
   pvals.df.log = 0
