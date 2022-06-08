@@ -8,4 +8,4 @@ Depends: R (>= 3.6.2), data.table, pROC, foreach, doParallel
 Description: batchPred objectively predicts relevant batch variables in order to improve the interpretation of heterogenous datasets.
 License: GPL (>= 2)
 Encoding: UTF-8
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
