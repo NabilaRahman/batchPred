@@ -2,5 +2,6 @@
 
 export(batchPred)
 export(plotBceF2)
+export(computeBceF2)
 export(refNet)
 export(refNetSubsets)
