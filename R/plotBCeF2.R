@@ -130,21 +130,32 @@ plotBceF2<- function (input.edata, covariates.df.list, input.gold.standard,
   l.auc = pROC::auc(roc_obj_linear)
   auc.vec <- l.auc
   
-  #Plot ROC curves
-  plot(roc_obj_linear
-       , col = line.color[1]
-       , cex.main = 0.8
-       , main=paste0(plot.title)
-       )
-  final.legend.to.use <- paste0(legend.to.use[1]
-                               , " (auc=", round(l.auc, 3), ")")
-  for (i in 2:ncol(pvals.df.log)) {
-    roc_obj_tmp = pROC::roc(gold.standard.bool, pvals.df.log[,i], quiet = T)
-    tmp.auc = pROC::auc(roc_obj_tmp)
-    lines(roc_obj_tmp, col = line.color[i])
-    final.legend.to.use = c(final.legend.to.use, paste0(legend.to.use[i],
-                                                        " (auc=", round(tmp.auc, 3), ")"))
-  }
-  legend("bottomright", cex = 1, legend = final.legend.to.use,
-         col = line.color, lwd = 0.8, lty = c(1, 1, 1, 1))
+  # Export relevant important factors
+  out <- list()
+  out[["roc_obj_linear"]] <- roc_obj_linear
+  out[["line.color"]] <- line.color
+  out[["plot.title"]] <- plot.title
+  out[["legend.to.use"]] <- legend.to.use
+  out[["l.auc"]] <- l.auc
+  out[["pvals.df.log"]] <- pvals.df.log
+  out[["gold.standard.bool"]] <- gold.standard.bool
+  out
+                   
+  # #Plot ROC curves
+  # plot(roc_obj_linear
+  #      , col = line.color[1]
+  #      , cex.main = 0.8
+  #      , main=paste0(plot.title)
+  #      )
+  # final.legend.to.use <- paste0(legend.to.use[1]
+  #                              , " (auc=", round(l.auc, 3), ")")
+  # for (i in 2:ncol(pvals.df.log)) {
+  #   roc_obj_tmp = pROC::roc(gold.standard.bool, pvals.df.log[,i], quiet = T)
+  #   tmp.auc = pROC::auc(roc_obj_tmp)
+  #   lines(roc_obj_tmp, col = line.color[i])
+  #   final.legend.to.use = c(final.legend.to.use, paste0(legend.to.use[i],
+  #                                                       " (auc=", round(tmp.auc, 3), ")"))
+  # }
+  # legend("bottomright", cex = 1, legend = final.legend.to.use,
+  #        col = line.color, lwd = 0.8, lty = c(1, 1, 1, 1))
 }
