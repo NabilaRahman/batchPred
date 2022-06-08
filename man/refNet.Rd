@@ -6,7 +6,7 @@
 \usage{
 refNet(
   network_gold_standard = NULL,
-  entrezID_input_edata = entrezID_input_edata,
+  input_edata = input_edata,
   gold_standard_path = NULL,
   false_positive = 0.025,
   true_positive = 0.5
@@ -14,12 +14,12 @@ refNet(
 }
 \arguments{
 \item{network_gold_standard}{Datatable of gene-gene network gold standard.
-Column 1 and 2 are entrez gene IDs. Column 3 is posterior probability with
+Column 1 and 2 are gene IDs. Column 3 is posterior probability with
 known edges set to 1. \code{refNet} is optimised for "full 
 networks", which can be be downloaded from 
 http://giant.princeton.edu/download/.}
 
-\item{entrezID_input_edata}{Character vector of entrez gene ids that 
+\item{input_edata}{Character vector of gene ids that 
 exist within your expression dataset.}
 
 \item{gold_standard_path}{(Optional). Path to gene-gene network gold
@@ -35,9 +35,9 @@ listed.}
 }
 \value{
 A reference gene association network for genes present in 
-\code{entrezID_input_edata}. This gold standard only retains the highest 
+\code{input_edata}. This gold standard only retains the highest 
 and lowest confidence gene interactions.Output is a data.table with 
-columns 1 and 2 being entrez gene ID, column 2 is posterior probability. 
+columns 1 and 2 being gene ID, column 2 is posterior probability. 
 While column 3 is defines whether gene relation is a true positive or 
 false positive (0) based on user defined thresholds.
 }
@@ -56,10 +56,10 @@ network_gold_standard<- data.table(
       ,NA,NA)
     , stringsAsFactors = F )
     
-#Create Mock entrez Gene IDs    
-entrezID_input_edata <- c('3091','4763','4204','7352','8698','6855' )
+#Create Mock Gene IDs    
+input_edata <- c('3091','4763','4204','7352','8698','6855' )
 
 #Generate Reference Network
-refNet( network_gold_standard, entrezID_input_edata, 
+refNet( network_gold_standard, input_edata, 
 gold_standard_path = NULL, false_positive = 0.025, true_positive = 0.5) 
 }
