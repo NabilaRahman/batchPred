@@ -1,4 +1,4 @@
-#' Generates roc curve for evaluating the performance of batch correction
+#' Generates values for roc curve for evaluating the performance of batch correction
 #' 
 #' This package corrects for confounders in gene expression datasets using 
 #'  multiple linear regression model and then evaluates the improvement in gene 
@@ -22,13 +22,13 @@
 #'  sets color for upto 6 roc curves with raw displayed as black. Manually 
 #'  specify line.color if plotting more than 6 different sets of covariates, 
 #'  i.e. over 6 dataframes in \code{covariates.df.list}.
-#' @return \code{plotBceF2} plots roc curves of raw and batch corrected datasets.
-#'  One batch corrected roc curve is plotted for each dataframe specified in 
+#' @return \code{computeBCeF2} Generates a list of all variables needed for plotting roc curves of raw and batch corrected datasets.
+#'  One batch corrected roc curve is computed for each dataframe specified in 
 #'  \code{covariates.df.list}, allowing you to compare the performance of 
-#'  different sets of covariates
+#'  different sets of covariates. Use \code{plotBCeF2} to plot these variables
 #' @export
 
-plotBceF2<- function (input.edata, covariates.df.list, input.gold.standard,
+computeBCeF2<- function (input.edata, covariates.df.list, input.gold.standard,
           plot.title = "Batch Correction Evaluation", roc.curve.legend = NULL,
           line.color=NULL)
 {
