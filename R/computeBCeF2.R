@@ -139,7 +139,7 @@ computeBCeF2<- function (input.edata, covariates.df.list, input.gold.standard,
   out[["l.auc"]] <- l.auc
   out[["pvals.df.log"]] <- pvals.df.log
   out[["gold.standard.bool"]] <- gold.standard.bool
-  out
+  return(out)
                    
   # #Plot ROC curves
   # plot(roc_obj_linear
