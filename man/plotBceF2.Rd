@@ -6,19 +6,28 @@
 \usage{
 plotBceF2(
   compute_bcef_object,
-  line.color = compute_bcef_object[["line.color"]],
-  plot.title = compute_bcef_object[["plot.title"]],
-  showLegendBorder = F
+  line_color = compute_bcef_object[["line.color"]],
+  plot_title = compute_bcef_object[["plot.title"]],
+  inner_title = "data_desc",
+  showLegendBorder = F,
+  title_size = 1.2,
+  inner_title_size = 0.8
 )
 }
 \arguments{
 \item{compute_bcef_object}{A list of all variables needed to plot ROC curve}
 
-\item{line.color}{Character vector of colors (Optional). Must match number of curves plotted.}
+\item{line_color}{Character vector of colors (Optional). Must match number of curves plotted.}
 
-\item{plot.title}{Title of the plot (Optional).}
+\item{plot_title}{Title of the plot (Optional).}
+
+\item{inner_title}{String. Specify text to go inside the plot area (top left).}
 
 \item{showLegendBorder}{If true, draw border around legend. Default=FALSE}
+
+\item{title_size}{Numeric. Specify size of title}
+
+\item{inner_title_size}{Numeric. Specify size of inner title}
 }
 \value{
 \code{plotBCeF2} Plots ROC curves of raw and batch corrected datasets.
